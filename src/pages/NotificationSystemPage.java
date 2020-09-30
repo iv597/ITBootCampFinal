@@ -14,11 +14,11 @@ public class NotificationSystemPage extends BasicPage {
 		super(driver, wait, js);
 		
 	}
-	public WebElement getSuccessfulLogin() {
+	public WebElement getSuccessfulMessage() {
 		return this.driver.findElement(By.xpath("//*[contains(@class, 'alert--success') or contains(@class, 'alert--danger')][contains(@style,'display: block')]"));
 	}
 	public String getSuccessfulLoginMessage() {
-		return this.getSuccessfulLogin().getText();
+		return this.getSuccessfulMessage().getText();
 	}
 	public void waitTobeInvisible() {
 		 this.wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@class, 'system_message')]")));
