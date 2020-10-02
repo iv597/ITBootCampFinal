@@ -20,5 +20,8 @@ public class MealItemPage extends BasicPage {
 		this.wait.until(ExpectedConditions.elementToBeClickable(addToCart()));
 		
 	}
+	public void addToFavourite() {
+		this.driver.findElement(By.xpath("//*[@id=\"item_42\"]/i/svg/g/path")).click();
+	}
 
 }
