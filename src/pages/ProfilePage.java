@@ -70,8 +70,8 @@ public class ProfilePage extends BasicPage {
 
 	public void uploadPhotoFile(String photo) throws IOException, InterruptedException {
 
-		js.executeScript("arguments[0].click();", this.getUploadBtn());	
-	 photo = new File("images\\slika.jpg").getCanonicalPath();
+		js.executeScript("arguments[0].click();", this.getUploadBtn());
+		photo = new File("images\\slika.jpg").getCanonicalPath();
 		WebElement upload = this.driver.findElement(By.xpath("//input[@type='file']"));
 		upload.sendKeys(photo);
 	}
