@@ -39,17 +39,18 @@ public class ProfileTest extends BasicTest {
 		lpp.closeLocationHeader();
 		lp.loginForm(this.userId, this.userPass);
 
-		Assert.assertTrue(nsp.getSuccessfulMessage().equals("Login Successfull"));
-
+		sa.assertTrue(nsp.getSuccessfulMessage().equals("Login Successfull"));
+		
+		wait.until(ExpectedConditions.invisibilityOf(nsp.getSuccessfulMessage()));
 		this.driver.navigate().to(this.baseUrl + "member/profile");
 
-		pp.inputAll("Michael", "Moore", "user@gmail.com", "Nis", "18000", "09090", "Serbia", "Serbia", "Nis");
+		pp.inputAll("Michael", "Moore", "Nis", "18000", "09090", "India", "Goa", "Betora");
 
-		Assert.assertTrue(nsp.getSuccessfulMessage().equals("Setup Successful"));
+		sa.assertTrue(nsp.getSuccessfulMessage().equals("Setup Successful"));
 
 		ap.logout();
 
-		Assert.assertTrue(nsp.getSuccessfulMessage().equals("Logout Successfull!"));
+		sa.assertTrue(nsp.getSuccessfulMessage().equals("Logout Successfull!"));
 
 	}
 	
@@ -65,18 +66,18 @@ public class ProfileTest extends BasicTest {
 
 		SoftAssert sa = new SoftAssert();
 
-		lpp.closeLocationHeader();
 		
 		lp.loginForm(this.userId, this.userPass);
 		
 		Thread.sleep(2000);
 
 		sa.assertTrue(nsp.getSuccessfulMessage().equals("Login Successfull"));
+		wait.until(ExpectedConditions.invisibilityOf(nsp.getSuccessfulMessage()));
 
 		this.driver.navigate().to(this.baseUrl + "member/profile");
-		
-		String imgPath = new File("images/slika.jpg").getCanonicalPath();
-		
+		Thread.sleep(1000);
+		String imgPath = new File("images\\slika.jpg").getCanonicalPath();
+		Thread.sleep(1000);
 		pp.uploadPhotoFile(imgPath);
 		
 		sa.assertTrue(nsp.getSuccessfulMessage().equals("Profile Image Uploaded Successfully"));
@@ -92,8 +93,8 @@ public class ProfileTest extends BasicTest {
 		ap.logout();
 
 		sa.assertTrue(nsp.getSuccessfulMessage().equals("Logout Successfull!"));
-
-		sa.assertAll();
+		
+		
 	}
-
+	
 }
