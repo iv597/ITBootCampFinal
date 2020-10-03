@@ -1,9 +1,14 @@
 package pages;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProfilePage extends BasicPage {
@@ -21,10 +26,6 @@ public class ProfilePage extends BasicPage {
 		return this.driver.findElement(By.name("user_last_name"));
 	}
 
-	public WebElement getEmail() {
-		return this.driver.findElement(By.name("user_email"));
-	}
-
 	public WebElement getAddress() {
 		return this.driver.findElement(By.name("user_address"));
 	}
@@ -38,31 +39,19 @@ public class ProfilePage extends BasicPage {
 	}
 
 	public WebElement getCountry() {
-		return this.driver.findElement(By.name("user_country_id"));
+		return this.driver.findElement(By.xpath("//*[@id='user_country_id']"));
 	}
 
 	public WebElement getState() {
-		return this.driver.findElement(By.name("user_state_id"));
+		return this.driver.findElement(By.xpath("//*[@id='user_state_id']"));
 	}
 
 	public WebElement getCity() {
-		return this.driver.findElement(By.name("user_city"));
+		return this.driver.findElement(By.xpath("//*[@id='user_city']"));
 	}
 
 	public WebElement getSaveProfileInfoBtn() {
 		return this.driver.findElement(By.xpath("//*[@id='profileInfoFrm']/div[5]/div/fieldset/input"));
-	}
-
-	public WebElement getCurrentPassword() {
-		return this.driver.findElement(By.name("current_password"));
-	}
-
-	public WebElement getNewPassword() {
-		return this.driver.findElement(By.name("new_password"));
-	}
-
-	public WebElement getConfirmPassword() {
-		return this.driver.findElement(By.name("conf_new_password"));
 	}
 
 	public WebElement getSavePassswordBtn() {
@@ -70,44 +59,42 @@ public class ProfilePage extends BasicPage {
 	}
 
 	public WebElement getUploadBtn() {
-		return this.driver.findElement(By.name("//*[@id='profileInfo']/div/div[1]/div/a[1]"));
+		return this.driver.findElement(By.className("upload"));
 	}
 
 	public WebElement getRemoveBtn() {
-		return this.driver.findElement(By.name("//*[@id='profileInfo']/div/div[1]/div/a[2]"));
+		return this.driver.findElement(By.className("remove"));
 	}
 
 	JavascriptExecutor js = (JavascriptExecutor) driver;
 
-	public void uploadPhoto() {
-		js.executeScript("arguments[0].click()", getUploadBtn());
-	}
+	public void uploadPhotoFile(String photo) throws IOException, InterruptedException {
 
-	public void uploadPhotoFile(String photo) {
-		this.getUploadBtn().sendKeys(photo);
+		js.executeScript("arguments[0].click();", this.getUploadBtn());	
+	 photo = new File("images\\slika.jpg").getCanonicalPath();
+		WebElement upload = this.driver.findElement(By.xpath("//input[@type='file']"));
+		upload.sendKeys(photo);
 	}
 
 	public void removePhoto() {
 		js.executeScript("arguments[0].click()", getRemoveBtn());
 	}
 
-	public void inputAll(String firstName, String lastName, String email, String address, String zipCode, String phone,
-			String country, String state, String city) {
-		this.getFirstName().clear();
-		this.getFirstName().sendKeys(firstName);
-		this.getLastName().clear();
-		this.getLastName().sendKeys(lastName);
-		this.getAddress().clear();
-		this.getAddress().sendKeys(address);
-		this.getZipCode().clear();
-		this.getZipCode().sendKeys(zipCode);
-		this.getPhone().clear();
-		this.getPhone().sendKeys(phone);
-		this.getCountry().clear();
+	public void inputAll(String firstName, String lastName, String address, String phone, String zipCode,
+			String country, String state, String city) throws InterruptedException {
+		this.getFirstName().sendKeys(Keys.chord(Keys.CONTROL, "a"), firstName);
+		this.getLastName().sendKeys(Keys.chord(Keys.CONTROL, "a"), lastName);
+		this.getAddress().sendKeys(Keys.chord(Keys.CONTROL, "a"), address);
+		this.getPhone().sendKeys(Keys.chord(Keys.CONTROL, "a"), phone);
+		this.getZipCode().sendKeys(Keys.chord(Keys.CONTROL, "a"), zipCode);
+		Thread.sleep(1000);
 		this.getCountry().sendKeys(country);
-		this.getState().clear();
+		Thread.sleep(1000);
 		this.getState().sendKeys(state);
-		this.getCity().clear();
+		Thread.sleep(1000);
 		this.getCity().sendKeys(city);
+		Thread.sleep(2000);
+		js.executeScript("arguments[0].click()", getSaveProfileInfoBtn());
+
 	}
 }
