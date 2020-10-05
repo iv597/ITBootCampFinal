@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AuthPage extends BasicPage {
@@ -13,10 +14,14 @@ public class AuthPage extends BasicPage {
 	
 	}
 	public WebElement getAccount() {
-		return this.driver.findElement(By.xpath("//*[@id='header']/div[2]/div/div[2]/div[2]/ul/li/div/ul/li[1]/a"));
+		return this.driver.findElement(By.xpath("//*[@id='header']/div[2]/div/div[2]/div[2]/ul/li/a"));
 	}
+	
 	public void logout() {
+		getAccount().click();
+		
 		WebElement logoutbtn = this.driver.findElement(By.xpath("//*[@id='header']/div[2]/div/div[2]/div[2]/ul/li/div/ul/li[2]/a"));
+		wait.until(ExpectedConditions.visibilityOf(logoutbtn));
 		logoutbtn.click();
 	}
 }
