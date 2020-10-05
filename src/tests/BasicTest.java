@@ -38,6 +38,7 @@ public abstract class BasicTest {
 	protected String lastName;
 	protected String address;
 	protected String phone;
+	protected String locationName;
 	JavascriptExecutor js = (JavascriptExecutor) driver;
 
 
@@ -52,7 +53,7 @@ public abstract class BasicTest {
 		this.driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		this.wait = new WebDriverWait(driver, 30);		
 		this.driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		this.js = (JavascriptExecutor) driver;
 	}
 
 	
