@@ -61,7 +61,7 @@ public class MealItemTest extends BasicTest {
 		NotificationSystemPage nsp = new NotificationSystemPage(this.driver, this.wait, this.js);
 		LoginPage lp = new LoginPage(this.driver, this.wait, this.js);
 
-		//lpp.closeLocationHeader();
+		// lpp.closeLocationHeader();
 		Thread.sleep(2000);
 		mp.addToFavourite();
 		Thread.sleep(2000);
@@ -92,7 +92,7 @@ public class MealItemTest extends BasicTest {
 		CartSummaryPage csp = new CartSummaryPage(this.driver, this.wait, this.js);
 
 		SoftAssert sa = new SoftAssert();
-		 lpp.openSelectLocation();
+		lpp.openSelectLocation();
 		lpp.selectLocation("City Center - Albany");
 		Thread.sleep(2000);
 
